@@ -20,6 +20,7 @@ class BSTNode {
 		void setName(string n);
 		void setChild(BSTNode* child, bool isLeft);
 		void setParent(BSTNode* parent);
+		BSTNode* smallestOnRight();
 };
 class BST {
 	private:
@@ -28,6 +29,7 @@ class BST {
 		BST();
 		BST(BSTNode* r);
 		BSTNode* getRoot();
+		void setRoot(BSTNode* r);
 		BSTNode* search(string name);
 		BSTNode* searchNearest(string name);
 		void add(string name);
@@ -37,23 +39,25 @@ class BST {
 
 // bst로 구현합시다
 int main() {
-	BSTNode *root = new BSTNode("G");
-	BST *tree = new BST(root);
-	printf("TREE Built success\n");
+	int n;
+	string name, cmd;
+	char tmpn[6], tmpcmd[6];
+	BST* tree = new BST();
 	
-	tree->add("H");
-	tree->add("C");
-	tree->add("E");
-	tree->add("A");
-	tree->add("T");
-	tree->add("D");
-	tree->add("K");
-	tree->add("B");
-	tree->add("U");
+	scanf("%d", &n);
+	for(int i=0; i<n; i++) {
+		scanf("%s%s", tmpn, tmpcmd);
+		name = tmpn;
+		cmd = tmpcmd;
+		if(cmd.compare("enter") == 0) {
+			tree->add(name);
+		}
+		else {
+			tree->deleteNode(name);
+		}
+	}
 	
-	printf("--------print-------\n");
 	tree->print(tree->getRoot());
-	printf("--------------------\n");
 }
 
 BSTNode::BSTNode(){}
@@ -91,15 +95,26 @@ void BSTNode::setChild(BSTNode* child, bool isLeft) {
 void BSTNode::setParent(BSTNode* parent) {
 	this->parent = parent;
 }
+BSTNode* BSTNode::smallestOnRight() {
+	BSTNode* cur = this->getChild(false);
+	while(cur->getChild(true) != NULL) {
+		cur = cur->getChild(true);
+	}
+	return cur;
+}
 
-
-BST::BST(){}
+BST::BST(){
+	this->root = NULL;
+}
 BST::BST(BSTNode* r) {
 	this->root = r;
 }
 BSTNode* BST::getRoot() {
 	return this->root;
 }
+void BST::setRoot(BSTNode* r) {
+	this->root = r;
+} 
 BSTNode* BST::search(string name) {
 	BSTNode *cur = this->root;
 	int cmp;
@@ -134,6 +149,10 @@ BSTNode* BST::searchNearest(string name) {
 void BST::add(string name) {
 	BSTNode* parent = this->searchNearest(name);
 	BSTNode* node = new BSTNode(name);
+	if(!parent) {
+		this->setRoot(node);
+		return;
+	}
 	int cmp = node->getName().compare(parent->getName());
 	if(cmp == 0) {
 		printf("ERR!! This Node Already Exists: %s\n", parent->getName().c_str());
@@ -148,26 +167,59 @@ void BST::add(string name) {
 void BST::deleteNode(string name) {
 	BSTNode *tar = this->search(name);
 	BSTNode *parent;
+	BSTNode* replace;
+	bool isLeft;
 	if(tar) {
+		parent = tar->getParent();
 		// case 1: no children at all
 		if(tar->getChild(true) == NULL && tar->getChild(false) == NULL) {
-			parent = tar->parent;
-			if(parent->getChild(true) == tar) {
-				parent->setChild(NULL, true);
+			if(tar == this->root) {
+				this->setRoot(NULL);
+				return;
 			}
-			else {
-				parent->setChild(NULL, false);
-			}
+			isLeft = parent->getChild(true) == tar;
+			parent->setChild(NULL, isLeft);
 			tar->setParent(NULL);
 		}
 		// case 3: 2 children
 		else if(tar->getChild(true) != NULL && tar->getChild(false) != NULL) {
+			replace = tar->smallestOnRight();
+			if(replace->getParent() != tar) {
+				// set replace's right child to replace's prarent's left child
+				replace->getParent()->setChild(replace->getChild(false), true);
+				if(replace->getChild(false)) {
+					replace->getChild(false)->setParent(replace->getParent());
+				}
+			}
+			replace->setParent(parent);
+			replace->setChild(tar->getChild(true), true);
 			
+			if(parent) {
+				isLeft = tar == parent->getChild(true);
+				parent->setChild(replace, isLeft);
+			}
+			else {
+				this->setRoot(replace);
+			}
 		}
 		// case 2: 1 child
 		else {
-			
+			isLeft = tar->getChild(true) != NULL;
+			replace = tar->getChild(isLeft);
+			if(tar == this->getRoot()) {
+				this->setRoot(tar->getChild(isLeft));
+			}
+			tar->getChild(isLeft)->setParent(parent);
+			tar->setChild(NULL, isLeft);
+			if(parent) {
+				isLeft = parent->getChild(true) == tar;
+				parent->setChild(replace, isLeft);
+				replace->setParent(parent);	
+			}
 		}
+		tar->setParent(NULL);
+		tar->setChild(NULL, true);
+		tar->setChild(NULL, false);
 	}
 	else {
 		printf("ERR!! This Node Doesn't Exist: %s\n", name.c_str());
