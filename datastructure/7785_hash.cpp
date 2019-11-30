@@ -117,9 +117,10 @@ void hashmap::remove(string n) {
 	}
 }
 void hashmap::print() {
-	node *n;
+	node* n;
 	string list[MAX_VAL];
 	int idx = 0;
+	
 	for(int i=0; i<MAX_VAL; i++) {
 		if(this->nodes[i] != NULL) {
 			n = this->nodes[i];
@@ -129,8 +130,8 @@ void hashmap::print() {
 			}
 		}
 	}
-	sort(list, list+MAX_VAL, greater<string>());
-	for(int i=0; i<MAX_VAL; i++) {
+	sort(list, list+idx, greater<string>());
+	for(int i=0; i<idx; i++) {
 		printf("%s\n", list[i].c_str());
 	}
 }
