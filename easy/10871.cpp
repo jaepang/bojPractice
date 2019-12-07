@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int main() {
 	int n, x;
@@ -9,14 +10,10 @@ int main() {
 		scanf("%d", arr+i);
 	}
 	for(int i=0; i<n; i++) {
-		printf("%d ", arr[i]);
+		if(arr[i] < x) {
+			printf("%d ", arr[i]);
+		}
 	}
 	printf("\n");
-	//for(int i=0; i<n; i++) {
-	//	if(arr[i] < x) {
-		//	printf("%d ", arr[i]);
-		//}
-	//}
-	//printf("\n");
 	return 0;
 }
