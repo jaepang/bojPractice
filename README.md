@@ -5,4 +5,4 @@
 2. Get not only knowledge, but also programming know-how of knowledge.
 
 ### solved problem: 29
-### Current Ranking in SKKU: 214 (+33 from beginning)
+### Current Ranking in SKKU: 205 (+42 from beginning)
