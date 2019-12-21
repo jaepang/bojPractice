@@ -3,6 +3,7 @@
 ### Rule
 1. First-used datastructure should be implemented before using library in each language.
 2. Get not only knowledge, but also programming know-how of knowledge.
+3. Get rest when tired or losing confidence. Try to keep fun in programming.
 
-### solved problem: 29
-### Current Ranking in SKKU: 205 (+42 from beginning)
+### solved problem: 35
+### Current Ranking in SKKU: 199 (+48 from beginning)
