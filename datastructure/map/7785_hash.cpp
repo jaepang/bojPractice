@@ -2,7 +2,7 @@
 #include <string>
 #include <functional>
 #include <algorithm>
-#define MAX_VAL 1000000
+#define MAX_VAL 1000000 // overflow memory in goorm
 using namespace std;
 
 /**
