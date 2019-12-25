@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string>
 using namespace std;
-// deque: double-ended deque => front, back 모두 삽입, 삭제가 가능
+// deque: double-ended queue => front, back 모두 삽입, 삭제가 가능
 class node {
 	private:
 		int key;
