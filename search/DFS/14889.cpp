@@ -42,7 +42,7 @@ int n, ans;
 int minVal = -1;
 vector <vector <int>> tester;
 vector <int> map[20];
-void select(int depth, int pos, vector <int> stack, int sum);
+void select(int depth, int pos, vector <int> stack);
 void calc(vector <int> start);
 
 int main() {
@@ -59,16 +59,14 @@ int main() {
 	
 	printf("%d\n", minVal);
 }
-void select(int depth, int pos, vector <int> stack, int sum) {
-	int size = stack.size();
+void select(int depth, int pos, vector <int> stack) {
 	stack.push_back(pos);
 	if(depth == 1) {
 		calc(stack);
 		return;
 	}
-	for(int i=pos+1; i<n; i++) {
-		select(depth-1, i, stack, sum);
-	}
+	for(int i=pos+1; i<n; i++)
+		select(depth-1, i, stack);
 }
 void calc(vector <int> start) {
 	int sumStart=0, sumLink=0, i=0, idx=0, size, diff;
