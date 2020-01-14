@@ -6,4 +6,4 @@
 3. Get rest when tired or losing confidence. Try to keep fun in programming.
 
 ### solved problem: 63
-### Current Ranking in SKKU: 167 (+80 from beginning)
+### Current Ranking in SKKU: 165 (+82 from beginning)
