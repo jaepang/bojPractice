@@ -2,3 +2,5 @@
 a
 # test file
 test.*
+# gitpod launch
+.theia/
