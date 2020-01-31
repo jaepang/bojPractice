@@ -1,5 +1,7 @@
 # execution file
 a
+# gdb execution file
+core.*
 # test file
 test.*
 # gitpod launch
