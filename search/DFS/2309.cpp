@@ -42,9 +42,9 @@ int calc() {
 }
 void DFS(int depth) {
     int idx=0;
-    for(int i=0; i<depth; i++)
-        printf("%d ", subset[i]);
-    printf("\n");
+    //for(int i=0; i<depth; i++)
+    //    printf("%d ", subset[i]);
+    //printf("\n");
     if(depth==7) {
         if(calc() == 100) {
             sort(subset, subset+7);
