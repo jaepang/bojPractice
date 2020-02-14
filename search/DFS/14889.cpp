@@ -55,7 +55,7 @@ int main() {
 			map[i].push_back(data);
 		}
 	}
-	select(n/2, 0, stack, 0);
+	select(n/2, 0, stack);
 	
 	printf("%d\n", minVal);
 }
