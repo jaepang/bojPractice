@@ -51,7 +51,6 @@ void DFS(int day, int pay) {
     }
     int d = day + tnp[day].first;
     int p = pay + tnp[day].second;
-    for(int i=d; i<n; i++) {
+    for(int i=d; i<n; i++)
         DFS(i, p);
-    }
 }
