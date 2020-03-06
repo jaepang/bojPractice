@@ -43,26 +43,15 @@ int main() {
 }
 
 void DFS(int day, int pay) {
-    //printf("<%d", day);
     if(day+tnp[day].first >= n) {
         if(day+tnp[day].first == n)
             pay += tnp[day].second;
-        //printf("END1! %d\n", pay);
         maximum = pay>maximum ? pay:maximum;
         return;
     }
     int d = day + tnp[day].first;
-    //printf("-%d>\n", d);
     int p = pay + tnp[day].second;
     for(int i=d; i<n; i++) {
-        //printf("[%d]\n", i);
         DFS(i, p);
-        /*if(tnp[i].first+d <= n)
-            DFS(i, p);
-        else {
-            printf("END2! %d %d\n", i, p);
-            maximum = p>maximum ? p:maximum;
-            return;
-        }*/
     }
 }
