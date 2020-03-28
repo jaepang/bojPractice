@@ -7,6 +7,6 @@
 2. Get not only knowledge, but also programming know-how of knowledge.
 3. Get rest when tired or losing confidence. Try to keep fun in programming.
 
-### solved problem: 89
-### Current Ranking in SKKU: 167 (+82 from beginning)
+### solved problem: 90
+### Current Ranking in SKKU: 166 (+83 from beginning)
 ### solved.ac Ranking in SKKU: 226 (+2)
