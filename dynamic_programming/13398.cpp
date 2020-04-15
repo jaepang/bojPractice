@@ -12,72 +12,26 @@
  * Gold 5
  */
 #include <stdio.h>
-#include <vector>
 #include <algorithm>
 using namespace std;
 
-int n;
-bool erased;
-vector <int> arr;
-vector <int> dp;
-int minimal();
-int maximum();
-bool minus();
+int arr[100001];
+int dp[100001][2];
 
 int main() {
+    int n, largest;
     scanf("%d", &n);
-    int idx=n;
-    int maxIdx;
-    arr.resize(n);
-    dp.resize(n);
-    for(int i=0; i<n; i++)
-        scanf("%d", &arr[i]);
-    int minIdx = minimal();
-    erased = arr[minIdx] < 0;
-    if(erased) {
-        arr.erase(arr.begin()+minIdx);
-        idx = n-1;
+    for(int i=1; i<=n; i++)
+        scanf("%d", arr+i);
+    dp[1][0] = arr[1];
+    for(int i=2; i<=n; i++) {
+        dp[i][0] = max(dp[i-1][0]+arr[i], arr[i]);
+        dp[i][1] = max(dp[i-2][0]+arr[i], dp[i-1][1]+arr[i]);
     }
-    if(minus()) {
-        printf("%d\n", maximum());
-        return 0;
-    }
-    dp[0] = arr[0];
-    for(int i=1; i<idx; i++) {
-        dp[i] = max(arr[i], dp[i-1]+arr[i]);
-        printf("dp[%d] = %d\n", i, dp[i]);
-    }
-    if(dp[idx-1] < dp[idx-2])
-        dp[idx-1] = dp[idx-2];
-    printf("%d\n", dp[idx-1]);
+    dp[1][1] = arr[1];
+    largest = max(dp[1][0], dp[1][1]);
+    for(int i=2; i<=n; i++)
+        largest = max(largest, max(dp[i][0], dp[i][1]));
+    printf("%d\n", largest);
     return 0;
-}
-int minimal() {
-    int m=0, mVal=arr[0];
-    for(int i=1; i<n; i++) {
-        if(arr[i]<mVal) {
-            m = i;
-            mVal = arr[i];
-        }
-    }
-    return m;
-}
-int maximum() {
-    int m=0, mVal=arr[0];
-    for(int i=1; i<n; i++) {
-        if(arr[i]>mVal) {
-            m = i;
-            mVal = arr[i];
-        }
-    }
-    return mVal;
-}
-bool minus() {
-    int idx = erased ? n-1:n;
-    bool m=true;
-    for(int i=0; i<idx; i++) {
-        if(arr[i] >= 0)
-            return false;
-    }
-    return true;
 }
