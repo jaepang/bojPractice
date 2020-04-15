@@ -1,5 +1,5 @@
 # execution file
-a
+a.*
 # gdb execution file
 core.*
 # test file
