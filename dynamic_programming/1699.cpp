@@ -36,28 +36,3 @@ int main() {
     printf("%d\n", dp[n]);
     return 0;
 }
-
-int knapsack(int t) {
-    //printf("===== knapsack(%d) =====\n", t);
-    int dp[320];
-    int lev = 0, cnt, tmp;
-    dp[0] = t+1;
-    while(true) {
-        cnt = 0;
-        lev++;
-        tmp = t;
-        if(lev*lev > tmp) {
-            break;
-        }
-        cnt = tmp / (lev*lev);
-        tmp -= lev*lev * cnt;
-        //printf("cnt: %d\n", cnt);
-        if(tmp > 0)
-            cnt += knapsack(tmp);
-        //printf("cnt': %d\n", cnt);
-        dp[lev] = min(dp[lev-1], cnt);
-        //printf("lev: %d dp: %d\n", lev, dp[lev]);
-    }
-    // printf("========================\nreturn %d\n", dp[lev-1]);
-    return dp[lev-1];
-}
