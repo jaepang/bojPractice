@@ -31,7 +31,7 @@ int main() {
         dp[i] = dp[i-1] + 1;
         int sqr = (int)sqrt(i);
         for(int j=sqr; j>=1; j--)
-            dp[i] = min(dp[i], 1+dp[i-(j*j)]);
+            dp[i] = min(dp[i], dp[j*j]+dp[i-(j*j)]);
     }
     printf("%d\n", dp[n]);
     return 0;
